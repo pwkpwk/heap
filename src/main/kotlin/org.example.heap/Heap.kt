@@ -37,16 +37,14 @@ class Heap<T> {
         var l = 0
         var u = data.length + 1
         var index = -1
-        var m: Int = 0
 
         while (l + 1 < u) {
-            m = (l + u) / 2
-            val mv = data.get(m)
-
-            if (order.areInOrder(mv, value)) { // value <= mv
-                l = m
-            } else { // value > mv
-                u = m
+            ((l + u) / 2).let {
+                if (order.areInOrder(data.get(it), value)) { // value <= mv
+                    l = it
+                } else { // value > mv
+                    u = it
+                }
             }
         }
 
@@ -58,30 +56,12 @@ class Heap<T> {
     }
 
     /**
-     * Sift the specified element up the heap
-     */
-    fun siftUp(oneBaseIndex: Int) {
-        var index = oneBaseIndex
-
-        while (index > 1) {
-            index = (index / 2).let { parent ->
-                if (!data.inOrder(parent, index, order)) {
-                    data.swap(index, parent)
-                    parent
-                } else {
-                    1
-                }
-            }
-        }
-    }
-
-    /**
      * Sift the top element (with one-based index of 1) down to the specified bottom index
      */
     fun siftDown(oneBaseBottomIndex: Int) {
         var index = 1
 
-        do {
+        while (index < oneBaseBottomIndex) {
             var child = index * 2
 
             index = if (child <= oneBaseBottomIndex) {
@@ -98,7 +78,7 @@ class Heap<T> {
             } else {
                 oneBaseBottomIndex
             }
-        } while (index < oneBaseBottomIndex)
+        }
     }
 
     fun interface Order<T> {
@@ -107,6 +87,24 @@ class Heap<T> {
 
     fun interface Equality<T> {
         fun areEqual(x: T, y: T): Boolean
+    }
+
+    /**
+     * Sift the specified element up the heap
+     */
+    private fun siftUp(oneBaseIndex: Int) {
+        var index = oneBaseIndex
+
+        while (index > 1) {
+            index = (index / 2).let { parent ->
+                if (!data.inOrder(parent, index, order)) {
+                    data.swap(index, parent)
+                    parent
+                } else {
+                    1
+                }
+            }
+        }
     }
 
     /**
