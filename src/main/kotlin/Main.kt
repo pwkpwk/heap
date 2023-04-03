@@ -3,9 +3,9 @@ import org.example.heap.Heap
 fun main(args: Array<String>) {
     // Implement merge sorting of a collection of sequences
     val tapes = mutableListOf(
-        mutableListOf(90, 80, 70, 60, 50, 40, 30, 20, 10),
+        mutableListOf(90, 80, 70, 60, 50, 40, 30, 20, 10, 104, 107),
         mutableListOf(105, 115, 125, 135, 95, 85, 75, 65, 55, 45, 35, 25, 15),
-        mutableListOf(9, 87, 7, 6, 5, 4, 3, 2, 1, 11, 12),
+        mutableListOf(9, 87, 7, 6, 5, 4, 3, 2, 1, 11, 12, 103, 106),
     )
     val merged = mutableListOf<Int>()
 
