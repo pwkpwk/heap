@@ -1,7 +1,8 @@
 package org.example.heap
 
-class Heap<T> {
+import kotlin.math.min
 
+class Heap<T> {
     private val data: DirectAccess<T>
     private val order: Order<T>
 
@@ -17,20 +18,30 @@ class Heap<T> {
 
     fun build(size: Int) {
         data.length.let { length ->
-            if (length >= 2) {
-                for (i in 2..if (size > length) length else size) {
+            if (length > 1) {
+                for (i in 2..min(size, length)) {
                     siftUp(i)
                 }
             }
         }
     }
 
-    fun sort() {
+    /**
+     * Sort the underlying data using the Heapsort algorithm.
+     */
+    fun heapsort() {
         build(data.length)
         for (i in data.length downTo 2) {
             data.swap(1, i)
             siftDown(i - 1)
         }
+    }
+
+    /**
+     * Sort the underlying data using the Quicksort algorithm
+     */
+    fun quicksort() {
+        quicksort(1, data.length)
     }
 
     fun binarySearch(value: T, equality: Equality<T>): Int {
@@ -79,6 +90,27 @@ class Heap<T> {
                 oneBaseBottomIndex
             }
         }
+    }
+
+    private fun quicksort(l: Int, u: Int) {
+        if (l < u) {
+            val m = partition(l, u)
+
+            quicksort(l, m - 1)
+            quicksort(m + 1, u)
+        }
+    }
+
+    private fun partition(l: Int, u: Int): Int {
+        var m = l
+
+        for (i in l + 1..u) {
+            if (data.inOrder(i, m, order)) {
+                data.swap(m++, i)
+            }
+        }
+
+        return m
     }
 
     fun interface Order<T> {

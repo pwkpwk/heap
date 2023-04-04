@@ -2,6 +2,7 @@ package org.example.heap
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class HeapTests {
     @Test
@@ -34,5 +35,15 @@ class HeapTests {
         assertEquals(-1, Heap(array) { x, y -> x < y }.binarySearch(15) { x, y -> x == y })
         assertEquals(-1, Heap(array) { x, y -> x < y }.binarySearch(45) { x, y -> x == y })
         assertEquals(-1, Heap(array) { x, y -> x < y }.binarySearch(55) { x, y -> x == y })
+    }
+
+    @Test
+    fun qs() {
+        val array = arrayOf(5, 4, 3, 2, 1, 6, 7, 8, 10, 9)
+
+        Heap(array) { x, y -> x < y }.quicksort()
+        for (i in 1..array.size - 1) {
+            assertTrue { array[i - 1] < array[i] }
+        }
     }
 }

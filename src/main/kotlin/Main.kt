@@ -1,6 +1,6 @@
 import org.example.heap.Heap
 
-fun main(args: Array<String>) {
+fun main() {
     // Implement merge sorting of a collection of sequences
     val tapes = mutableListOf(
         mutableListOf(90, 80, 70, 60, 50, 40, 30, 20, 10, 104, 107),
@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
         // The order is reversed from greater to smaller values because the heap sort algorithm
         // picks the lowest element in the order from the top of the heap and pushes it to the end
         // of the sequence, so the sorted data grows from the end towards the beginning of the data
-        Heap(tape) { x, y -> x > y }.sort()
+        Heap(tape) { x, y -> x > y }.heapsort()
     }
 
     val iterators = mutableListOf<ListIterator<Int>>().apply { addAll(tapes.map { it.listIterator() }) }
