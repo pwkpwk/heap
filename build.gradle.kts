@@ -16,6 +16,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+
+    testLogging {
+        events("passed")
+    }
 }
 
 kotlin {
