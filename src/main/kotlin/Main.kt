@@ -1,6 +1,7 @@
 import org.example.heap.Heap
 
 fun main() {
+    println("Kotlin")
     // Implement merge sorting of a collection of sequences
     val tapes = mutableListOf(
         mutableListOf(90, 80, 70, 60, 50, 40, 30, 20, 10, 104, 107),
