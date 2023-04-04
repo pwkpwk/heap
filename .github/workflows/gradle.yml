@@ -37,6 +37,6 @@ jobs:
       with:
         arguments:
     - uses: actions/upload-artifact@v3
-        with:
-          name: Package
-          path: build/libs
+      with:
+        name: Package
+        path: build/libs
