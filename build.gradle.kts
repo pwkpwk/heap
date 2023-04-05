@@ -11,7 +11,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.20-RC")
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.20")
 }
 
 tasks.test {

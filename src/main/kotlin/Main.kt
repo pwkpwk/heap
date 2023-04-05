@@ -1,3 +1,5 @@
+import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.kotlin.toObservable
 import org.example.heap.Heap
 
 fun main() {
@@ -51,4 +53,11 @@ fun main() {
             }
         }
     }
+
+    // A little bit of RxKotlin
+    listOf(1, 2, 3, 4, 5).toObservable().subscribeBy(
+        onNext = { println(it) },
+        onError = { println(it) },
+        onComplete = { println("finished") }
+    )
 }
