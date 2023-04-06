@@ -12,6 +12,16 @@ repositories {
 
 dependencies {
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.1")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-gson
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // https://mvnrepository.com/artifact/com.squareup.retrofit2/adapter-rxjava3
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.20")
 }
 
