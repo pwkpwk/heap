@@ -95,35 +95,30 @@ class Graph(private val size: Int) {
     }
 
     private fun rsp(start: Int, end: Int, visited: Array<Boolean>, path: Array<Int>): Int? {
-
-        visited[start] = true
+        if (start == end) {
+            return 0
+        }
 
         var minPath: Int? = null
         var minNeighbor: Int? = null
 
+        visited[start] = true
+
+        // Go through all unvisited neighbors and find the one with the shortest path to the end
         for (neighbor in 0 until size) {
             if (!visited[neighbor]) {
-
                 val pathToNeighbor = get(start, neighbor);
 
                 if (pathToNeighbor != null) {
-                    if (neighbor == end) {
-                        // Neighbor is the end - update the current minimum with the direct path to the neighbor
-                        if (minPath == null || minPath > pathToNeighbor) {
-                            minPath = pathToNeighbor
+                    // Find the path from the neighbor to the end and update the current minimum
+                    val pathFromNeighbor = rsp(neighbor, end, visited, path)
+
+                    if (pathFromNeighbor != null) {
+                        val pathToEnd = pathToNeighbor + pathFromNeighbor
+
+                        if (minPath == null || minPath > pathToEnd) {
+                            minPath = pathToEnd
                             minNeighbor = neighbor
-                        }
-                    } else {
-                        // Find the path from the neighbor to the end and update the current minimum
-                        val pathFromNeighbor = rsp(neighbor, end, visited, path)
-
-                        if (pathFromNeighbor != null) {
-                            val pathToEnd = pathToNeighbor + pathFromNeighbor
-
-                            if (minPath == null || minPath > pathToEnd) {
-                                minPath = pathToEnd
-                                minNeighbor = neighbor
-                            }
                         }
                     }
                 }
@@ -133,6 +128,7 @@ class Graph(private val size: Int) {
 
         // If the minimum neighbor has been found, add a trace back from it to the start of the current search
         minNeighbor?.let { path[minNeighbor] = start }
+
         visited[start] = false
 
         return minPath

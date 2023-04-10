@@ -1,5 +1,7 @@
 package org.example.graph
 
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertIterableEquals
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -10,7 +12,7 @@ class GraphTests {
     fun negaticeWeight_recursiveShortestPath_findsPath() {
         val graph = Graph(5);
 
-        graph[0, 1] = 50
+        graph[0, 1] = 10
         graph[0, 2] = 3
         graph[0, 3] = 1
         graph[1, 4] = -10
@@ -22,16 +24,12 @@ class GraphTests {
 
         graph.recursiveShortestPath(0, 4).let {
             assertEquals(5, it.size)
-            assertEquals(0, it[0])
-            assertEquals(3, it[1])
-            assertEquals(2, it[2])
-            assertEquals(1, it[3])
-            assertEquals(4, it[4])
+            assertIterableEquals(listOf(0, 3, 2, 1, 4), it)
         }
     }
 
     @Test
-    fun plop() {
+    fun pathExists_dijkstraShortestPath_findsPath() {
         val graph = Graph(10);
         graph[0, 1] = 1
         graph[0, 5] = 1
@@ -47,16 +45,12 @@ class GraphTests {
 
         graph.dijkstraShortestPath(0, 8)!!.let {
             assertEquals(5, it.size)
-            assertEquals(0, it[0])
-            assertEquals(5, it[1])
-            assertEquals(6, it[2])
-            assertEquals(7, it[3])
-            assertEquals(8, it[4])
+            assertIterableEquals(listOf(0, 5, 6, 7, 8), it.asIterable())
         }
     }
 
     @Test
-    fun flop() {
+    fun noPath_dijkstraShortestPath_returnsNull() {
         val graph = Graph(10);
         graph[0, 1] = 1
         graph[0, 5] = 1
