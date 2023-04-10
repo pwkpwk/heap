@@ -118,7 +118,7 @@ class Graph(private val size: Int) {
                         val pathFromNeighbor = rsp(neighbor, end, visited, path)
 
                         if (pathFromNeighbor != null) {
-                            val pathToEnd = pathToNeighbor + pathFromNeighbor!!
+                            val pathToEnd = pathToNeighbor + pathFromNeighbor
 
                             if (minPath == null || minPath > pathToEnd) {
                                 minPath = pathToEnd
