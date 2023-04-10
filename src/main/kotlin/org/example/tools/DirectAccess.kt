@@ -1,4 +1,4 @@
-package org.example.heap
+package org.example.tools
 
 /**
  * Wrapper of collections with direct access to elements that also implements

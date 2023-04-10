@@ -1,4 +1,4 @@
-package org.example.heap
+package org.example.tools
 
 fun interface Equality<T> {
     /**

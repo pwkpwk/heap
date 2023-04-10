@@ -1,5 +1,7 @@
 package org.example.heap
 
+import org.example.tools.DirectAccess
+import org.example.tools.Order
 import kotlin.math.min
 
 class Heap<T> {

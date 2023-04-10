@@ -1,4 +1,8 @@
-package org.example.heap
+package org.example.search
+
+import org.example.tools.DirectAccess
+import org.example.tools.Equality
+import org.example.tools.Order
 
 class Search<T> {
     private val data: DirectAccess<T>

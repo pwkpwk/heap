@@ -1,4 +1,4 @@
-package org.example.heap
+package org.example.search
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

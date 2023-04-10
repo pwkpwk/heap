@@ -1,4 +1,4 @@
-package org.example.heap
+package org.example.sort
 
 import kotlin.test.Test
 import kotlin.test.assertTrue

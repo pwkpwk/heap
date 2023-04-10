@@ -1,4 +1,7 @@
-package org.example.heap
+package org.example.sort
+
+import org.example.tools.DirectAccess
+import org.example.tools.Order
 
 class Quicksort<T> {
     private val data: DirectAccess<T>
