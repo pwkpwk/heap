@@ -1,6 +1,5 @@
 package org.example.graph
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertIterableEquals
 import kotlin.test.Test
 import kotlin.test.assertEquals
