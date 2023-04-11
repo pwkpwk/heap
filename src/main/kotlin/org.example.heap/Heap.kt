@@ -69,7 +69,7 @@ class Heap<T> {
     /**
      * Sift the specified element up the heap
      */
-    private fun siftUp(oneBaseIndex: Int) {
+    fun siftUp(oneBaseIndex: Int) {
         var index = oneBaseIndex
 
         while (index > 1) {

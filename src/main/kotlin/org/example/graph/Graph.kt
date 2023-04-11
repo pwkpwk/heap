@@ -94,7 +94,7 @@ class Graph(private val size: Int) {
         return null
     }
 
-    private fun rsp(start: Int, end: Int, visited: Array<Boolean>, path: Array<Int>): Int? {
+    private fun rsp(start: Int, end: Int, visited: Array<Boolean>, trace: Array<Int>): Int? {
         if (start == end) {
             return 0
         }
@@ -107,14 +107,14 @@ class Graph(private val size: Int) {
         // Go through all unvisited neighbors and find the one with the shortest path to the end
         for (neighbor in 0 until size) {
             if (!visited[neighbor]) {
-                val pathToNeighbor = get(start, neighbor);
+                val distanceToNeighbor = get(start, neighbor);
 
-                if (pathToNeighbor != null) {
-                    // Find the path from the neighbor to the end and update the current minimum
-                    val pathFromNeighbor = rsp(neighbor, end, visited, path)
+                if (distanceToNeighbor != null) {
+                    // Find the distance from the neighbor to the end and update the current minimum
+                    val distanceFromNeighbor = rsp(neighbor, end, visited, trace)
 
-                    if (pathFromNeighbor != null) {
-                        val pathToEnd = pathToNeighbor + pathFromNeighbor
+                    if (distanceFromNeighbor != null) {
+                        val pathToEnd = distanceToNeighbor + distanceFromNeighbor
 
                         if (minPath == null || minPath > pathToEnd) {
                             minPath = pathToEnd
@@ -127,7 +127,7 @@ class Graph(private val size: Int) {
         }
 
         // If the minimum neighbor has been found, add a trace back from it to the start of the current search
-        minNeighbor?.let { path[minNeighbor] = start }
+        minNeighbor?.let { trace[minNeighbor] = start }
 
         visited[start] = false
 
