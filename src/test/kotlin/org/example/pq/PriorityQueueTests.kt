@@ -36,4 +36,23 @@ class PriorityQueueTests {
             assertFalse { isNotEmpty }
         }
     }
+
+    @Test
+    fun initializedWithCapacity_popAll_correctOrder() {
+        PriorityQueue<Int>(16) { x, y -> x < y }.apply {
+            push(5)
+            push(3)
+            push(4)
+            push(2)
+            push(1)
+
+            assertEquals(1, pop())
+            assertEquals(2, pop())
+            assertEquals(3, pop())
+            assertEquals(4, pop())
+            assertEquals(5, pop())
+            assertTrue { isEmpty }
+            assertFalse { isNotEmpty }
+        }
+    }
 }

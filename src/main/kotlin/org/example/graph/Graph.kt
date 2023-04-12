@@ -1,5 +1,6 @@
 package org.example.graph
 
+import org.example.pq.PriorityQueue
 import java.util.*
 
 class Graph(private val size: Int) {
@@ -38,9 +39,50 @@ class Graph(private val size: Int) {
         return path
     }
 
+    private class QueuedVertex(val index: Int, val distance: Int)
+
+    fun d(start: Int, end: Int): List<Int> {
+        val trace = Array(size) { -1 }
+        val distance = Array(size) { Int.MAX_VALUE }
+
+        if (start in 0 until size && end in 0 until size && start != end) {
+            val pq = PriorityQueue<QueuedVertex>(size) { x, y -> x.distance < y.distance }
+            distance[start] = 0
+            pq.push(QueuedVertex(start, 0))
+
+            do {
+                pq.pop().let { min ->
+                    for (i in 0 until size) {
+                        get(min.index, i)?.let { rib ->
+                            val newDistance = rib + distance[min.index]
+                            if (newDistance < distance[i]) {
+                                distance[i] = newDistance
+                                trace[i] = min.index
+                                pq.push(QueuedVertex(i, newDistance))
+                            }
+                        }
+                    }
+                }
+            } while (pq.isNotEmpty)
+        }
+
+        return if (trace[end] >= 0) {
+            LinkedList<Int>().apply {
+                var vertex = end
+                do {
+                    addFirst(vertex)
+                    vertex = trace[vertex]
+                } while (vertex != start)
+                addFirst(start)
+            }
+        } else {
+            return emptyList()
+        }
+    }
+
     fun dijkstraShortestPath(start: Int, end: Int): Array<Int>? {
         if (start in 0 until size && end in 0 until size && start != end) {
-            val unvisited = Array<Boolean>(size) { true }
+            val unvisited = Array(size) { true }
             var unvisitedNumber = size
             val distance: Array<Int> = Array(size) { Int.MAX_VALUE }
             val trace: Array<Int> = Array(size) { -1 }
@@ -92,6 +134,45 @@ class Graph(private val size: Int) {
         }
 
         return null
+    }
+
+    private class Edge(val start: Int, val end: Int, val distance: Int)
+
+    fun bellmanFordShortestPath(start: Int, end: Int): List<Int> {
+        return LinkedList<Int>().also {
+            if (start in 0 until size && end in 0 until size && start != end) {
+                val distance: Array<Int> = Array(size) { Int.MAX_VALUE }
+                val trace: Array<Int> = Array(size) { -1 }
+                val edges = mutableListOf<Edge>()
+
+                for (destination in 0 until size) {
+                    for (source in 0 until size) {
+                        get(source, destination)?.let { edges.add(Edge(source, destination, it)) }
+                    }
+                }
+
+                distance[start] = 0
+
+                for (destination in 1 until size) {
+                    for (edge in edges) {
+                        if (distance[edge.start] != Int.MAX_VALUE && distance[edge.start] + edge.distance < distance[edge.end]) {
+                            distance[edge.end] = distance[edge.start] + edge.distance
+                            trace[edge.end] = edge.start
+                        }
+                    }
+                }
+
+                if (distance[end] != Int.MAX_VALUE) {
+                    var index = end
+
+                    do {
+                        it.addFirst(index)
+                        index = trace[index]
+                    } while (index != start)
+                    it.addFirst(start)
+                }
+            }
+        }
     }
 
     private fun rsp(start: Int, end: Int, visited: Array<Boolean>, trace: Array<Int>): Int? {
