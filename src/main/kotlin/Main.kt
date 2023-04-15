@@ -1,4 +1,3 @@
-import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.kotlin.toObservable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -72,7 +71,7 @@ fun main() {
             onComplete = { println("finished") }
         )
 
-        val disposable: Disposable = RetrofitInstance.blogApi.getPostsObservable()
+        /* val disposable: Disposable =*/ RetrofitInstance.blogApi.getPostsObservable()
             .subscribeOn(rxScheduler)
             .observeOn(rxScheduler)
             .subscribeBy(
