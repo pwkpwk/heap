@@ -23,7 +23,7 @@ class Graph(private val size: Int) {
         val path = LinkedList<Int>()
 
         if (start in 0 until size && end in 0 until size && start != end) {
-            val pathArray = Array<Int>(size) { -1 }
+            val pathArray = Array(size) { -1 }
             val visited = Array(size) { false }
 
             rsp(start, end, visited, pathArray)?.let {
@@ -112,7 +112,7 @@ class Graph(private val size: Int) {
                                 minVertex = trace[minVertex!!]
                                 it.addFirst(minVertex)
                             }
-                            it.toArray(Array<Int>(it.size) { 0 })
+                            it.toArray(Array(it.size) { 0 })
                         }
                     } else {
                         for (v in 0 until size) {
@@ -139,10 +139,8 @@ class Graph(private val size: Int) {
     private class Edge(val start: Int, val end: Int, val distance: Int)
 
     fun bellmanFordShortestPath(start: Int, end: Int): List<Int> {
-        return LinkedList<Int>().also {
+        return LinkedList<Int>().also { list ->
             if (start in 0 until size && end in 0 until size && start != end) {
-                val distance: Array<Int> = Array(size) { Int.MAX_VALUE }
-                val trace: Array<Int> = Array(size) { -1 }
                 val edges = mutableListOf<Edge>()
 
                 for (destination in 0 until size) {
@@ -151,8 +149,12 @@ class Graph(private val size: Int) {
                     }
                 }
 
+                val distance = Array(size) { Int.MAX_VALUE }
+                val trace = Array(size) { -1 }
+
                 distance[start] = 0
 
+                // Main loop of the algorithm - try to improve the destination distances of all vertices
                 for (destination in 1 until size) {
                     for (edge in edges) {
                         if (distance[edge.start] != Int.MAX_VALUE && distance[edge.start] + edge.distance < distance[edge.end]) {
@@ -166,10 +168,10 @@ class Graph(private val size: Int) {
                     var index = end
 
                     do {
-                        it.addFirst(index)
+                        list.addFirst(index)
                         index = trace[index]
                     } while (index != start)
-                    it.addFirst(start)
+                    list.addFirst(start)
                 }
             }
         }
@@ -188,7 +190,7 @@ class Graph(private val size: Int) {
         // Go through all unvisited neighbors and find the one with the shortest path to the end
         for (neighbor in 0 until size) {
             if (!visited[neighbor]) {
-                val distanceToNeighbor = get(start, neighbor);
+                val distanceToNeighbor = get(start, neighbor)
 
                 if (distanceToNeighbor != null) {
                     // Find the distance from the neighbor to the end and update the current minimum
